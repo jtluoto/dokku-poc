@@ -3,3 +3,34 @@
   connection: local
   roles:
     - dokku_bot.ansible_dokku
+  vars:
+    dokku_users:
+      - name: admin
+        username: admin
+        ssh_key: "{{lookup('file', '/home/ubuntu/.ssh/dokku-key.pub')}}"
+    dokku_plugins:
+      - name: postgres
+        url: https://github.com/dokku/dokku-postgres.git
+  tasks:
+    - name: Set the global domain
+      tags:
+        - conf
+      dokku_domains:
+        global: true
+        # Replace any default confs with this
+        state: set
+        domains:
+          - "{{ dokku_global_domain }}"
+    - name: Create a dokku app
+      dokku_app:
+        app: ruby-getting-started
+    - name: postgres:create default
+      dokku_service_create:
+        name: railsdatabase
+        service: postgres
+    - name: postgres:link default hello-world
+      dokku_service_link:
+        service: postgres
+        app: ruby-getting-started
+        name: railsdatabase
+
