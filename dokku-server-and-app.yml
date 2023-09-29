@@ -33,4 +33,10 @@
         service: postgres
         app: ruby-getting-started
         name: railsdatabase
-
+    - name: Deploy Ruby on Rails getting started Heroku app
+      tags:
+        - deploy_only
+      dokku_clone:
+        app: ruby-getting-started
+        repository: https://github.com/heroku/ruby-getting-started
+        version: main
