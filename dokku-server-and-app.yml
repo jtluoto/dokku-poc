@@ -5,10 +5,10 @@
     - dokku_bot.ansible_dokku
   vars:
     dokku_global_domain: dokku-poc.me
-    dokku_users:
-      - name: admin
-        username: admin
-        ssh_key: "{{lookup('file', '/home/ubuntu/.ssh/dokku-key.pub')}}"
+#    dokku_users:
+#      - name: admin
+#        username: admin
+#        ssh_key: "{{lookup('file', '/home/ubuntu/.ssh/dokku-key.pub')}}"
     dokku_plugins:
       - name: postgres
         url: https://github.com/dokku/dokku-postgres.git
